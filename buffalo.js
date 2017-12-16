@@ -9,6 +9,8 @@ var collectibles
 function preload() {
   buff = loadImage("buff.png");// load buffalo png
   wolfy= loadImage("wolfy.png");//load wolf png
+  soundFormats("wav");
+  noise= loadSound("wolfbuff.wav");
 }
 
 function setup() {
@@ -46,7 +48,11 @@ function setup() {
   
 
 }
+// function death(){
+// noise.setVolume(1);
+// noise.play();
 
+// }
 
 function explode(buff1, buff2){
   
@@ -89,7 +95,9 @@ function draw() {
  
   wolf.overlap(tmp,collect);
   wolf.overlap(images, collect);
-
+ 
+  // wolf.overlap(tmp,death);
+  // wolf.overlap(images,death);
   //all sprites bounce at the screen edges
   for (var i = 0; i < allSprites.length; i++) {
     var s = allSprites[i];
@@ -131,4 +139,7 @@ function collect(collector, collected)
   //collected is the sprite in the group collectibles that triggered 
   //the event
   collected.remove();
+  noise.setVolume(0.3);
+noise.play();
+tint(255,0,150);
 }
